@@ -1,232 +1,98 @@
-#include <iostream>
-using namespace std;
+#include "Assistance.h"
+#include "SeqList.h"
 
-enum Status {SUCCESS, FAIL, UNDER_FLOW, OVER_FLOW,RANGE_ERROR, DUPLICATE_ERROR,
-	NOT_PRESENT, ENTRY_INSERTED, ENTRY_FOUND, VISITED, UNVISITED};
-#define DEFAULT_SIZE 1000
-#define DEFAULT_INFINITY 1000000
-
-template <class ElemType>
-class SeqList 
+int main()
 {
-protected:
-	int length;					
-	int maxLength;	
-	ElemType *elems;
-
-public:
-	SeqList(int size = DEFAULT_SIZE);
-	SeqList(ElemType v[], int n, int size = DEFAULT_SIZE);
-	virtual ~SeqList();	
-	int GetLength() const;	 
-	bool IsEmpty() const;
-	void Clear();
-	void Traverse(void (*Visit)(const ElemType &)) const;
-	int LocateElem(const ElemType &e) const;
-	Status GetElem(int i, ElemType &e) const;
-	Status SetElem(int i, const ElemType &e);
-	Status DeleteElem(int i, ElemType &e);
-	Status InsertElem(int i, const ElemType &e);
- 	Status InsertElem(const ElemType &e); 
-    ElemType FindMax() const;
-    ElemType FindMin() const;
-	SeqList(const SeqList<ElemType> &sa);
-	SeqList<ElemType> &operator =(const SeqList<ElemType> &sa);
-};
-
-
-
-template <class ElemType>
-SeqList<ElemType>::SeqList(int size)
-{
-	elems = new ElemType[size];	
-	assert(elems);
-	maxLength = size;
-	length = 0;
-}
-
-template <class ElemType>
-SeqList<ElemType>::SeqList(ElemType v[], int n, int size)
-{
-	elems = new ElemType[size];
-	assert(elems);
-	maxLength = size;
-	length = n;
-	for (int i = 0; i < length; i++)
-		elems[i] = v[i]; 
-}
- 
-template <class ElemType>
-SeqList<ElemType>::~SeqList()
-{
-	delete []elems;
-}
-
-template <class ElemType>
-int SeqList<ElemType>::GetLength() const
-{
-	return length;
-}
-
-template <class ElemType>
-bool SeqList<ElemType>::IsEmpty() const
-{
-	return length == 0;
-}
-
-template <class ElemType>
-void SeqList<ElemType>::Clear()
-{
-	length = 0;
-}
-
-template <class ElemType>
-void SeqList<ElemType>::Traverse(void (*visit)(const ElemType &)) const
-{
-	for (int i = 0; i < length; i++)
-		(*visit)(elems[i]);
-}
-
-template <class ElemType>
-int SeqList<ElemType>::LocateElem(const ElemType &e) const
-{
-	int i = 0;
-    while (i < length && elems[i] != e)
-         i++;	
-    return i < length ? i+1 : 0;
-}
-
-template <class ElemType>
-Status SeqList<ElemType>::GetElem(int i, ElemType &e) const
-{
-	if(i < 1 || i > length)
-		return NOT_PRESENT;
-	else	{
-		e = elems[i - 1];
-		return ENTRY_FOUND;
+	char c = '*';
+    SeqList<int> la(6);
+    int e, i;
+    Status sta;
+    
+	while (c != '0')
+	{
+        cout << endl << "1. 生成线性表.";
+        cout << endl << "2. 显示线性表.";
+        cout << endl << "3. 取指定元素.";
+        cout << endl << "4. 设置元素值ֵ.";
+        cout << endl << "5. 删除元素.";
+        cout << endl << "6. 插入元素.";
+        cout << endl << "7. 元素定位.";
+        cout << endl << "8. 求线性表长度.";
+		cout << endl << "0. 退出";
+		cout << endl << "选择功能(0~8):";
+		cin >> c;
+		switch (c) 	{
+			case '1':
+			    la.Clear();
+			    sta = SUCCESS;
+				cout << endl << "输入e(e = 0时退出):";
+				cin >> e;
+				while (e != 0 && sta != OVER_FLOW)	{
+					sta = la.InsertElem(e);
+					if (sta == OVER_FLOW) 
+						cout << "." << endl;
+					else
+						cin >> e;
+				}
+				break;
+			case '2':
+			    la.Traverse(Write<int>);
+				break;
+			case '3':
+			    cout << endl << "输入元素位置:";
+			    cin >> i;
+			    if (la.GetElem(i, e) == NOT_PRESENT) 
+					cout << "元素不存储." << endl;
+				else
+					cout << "元素:" << e << endl;
+			    break;
+			case '4':
+			    cout << endl << "输入位置:";
+			    cin >> i;
+			    cout << endl << "输入元素值ֵ:";
+			    cin >> e;
+				if (la.SetElem(i, e) == RANGE_ERROR)
+					cout << "." << endl;
+				else
+					cout << "设置成功." << endl;
+			    break;
+			case '5':
+			    cout << endl << ":";
+			    cin >> i;
+			    if (la.DeleteElem(i, e) == RANGE_ERROR) 
+					cout << "." << endl;
+				else
+					cout << "ֵ:" << e << endl;
+			    break;
+			case '6':
+			    cout << endl << ":";
+			    cin >> i;
+			    cout << endl << "ֵ:";
+			    cin >> e;
+			    sta = la.InsertElem(i, e);
+			    
+			    if (sta == RANGE_ERROR) 
+					cout << "." << endl;
+				else if (sta == OVER_FLOW) 
+					cout << "." << endl;
+				else
+					cout << "." << endl;	
+			    break;
+			case '7':
+			    cout << endl << "ֵ:";
+			    cin >> e;
+			    i = la.LocateElem(e); 
+			    if (i != 0) 
+					cout << "" << e << "" << i << endl;
+				else
+					cout << "" << e << ""  << endl;
+			    break;
+			case '8':
+			    cout << endl << ":" << la.GetLength() << endl; 
+			    break;
+       	}
 	}
-}
 
-template <class ElemType>
-Status SeqList<ElemType>::SetElem(int i, const ElemType &e)
-
-{
-	if (i < 1 || i > length)
-		return RANGE_ERROR;
-	else	{
-		elems[i - 1] = e;
-		return SUCCESS;
-	}
-}
-
-template <class ElemType>
-Status SeqList<ElemType>::DeleteElem(int i, ElemType &e)
-{
-	if (i < 1 || i > length)		
-		return RANGE_ERROR;
-	else	{
-		e = elems[i - 1];
-		for (int j = i; j < length; j++)
-			elems[j-1] = elems[j]; 
-		length--;
-		return SUCCESS;
-	}
-}
-
-template <class ElemType>
-Status SeqList<ElemType>::InsertElem(int i, const ElemType &e)
-{
-	if (length == maxLength)
-		return OVER_FLOW;
-	else if (i < 1 || i > length + 1)
-		return RANGE_ERROR;
-	else	{
-		for (int j = length; j >= i; j--)
-			elems[j] = elems[j - 1]; 
-		elems[i - 1] = e;
-   		length++;
-     	return SUCCESS;
-	}
-}
-
-template <class ElemType>
-Status SeqList<ElemType>::InsertElem(const ElemType &e)
-{
-	if (length==maxLength)
-		return OVER_FLOW;	
-	else	{
-		elems[length] = e;	
-   		length++;
-     	return SUCCESS;
-	}
-}
-
-template <class ElemType>
-SeqList<ElemType>::SeqList(const SeqList<ElemType> &sa)
-{
-	int saLength = sa.GetLength();
-	ElemType e;
-
-	maxLength = sa.maxLength;
-	elems = new ElemType[maxLength];
-	assert(elems);
-	length = 0;
-
-	for (int i = 1; i <= saLength; i++)	{
-		sa.getElem(i, e);
-		insertElem(e);
-	}
-}
-
-template <class ElemType>
-SeqList<ElemType> &SeqList<ElemType>::operator =(const SeqList<ElemType> &sa)
-{
-	if (&sa != this)	{
-		int saLength = sa.GetLength();
-		ElemType e;
-
-        maxLength = sa.maxLength;
-        delete []elems;
-        elems = new ElemType[maxLength];
-	    assert(elems);
-        length = 0;
-        for (int i = 1; i <= saLength; i++)	{
-			sa.getElem(i, e);
-			insert(e);
-		}
-	}
-	return *this;
-}
-
-template <class ElemType>
-ElemType SeqList<ElemType>::FindMax() const
-{
-    if(IsEmpty()){
-        return ElemType(0);
-    }
-    ElemType res = elems[0];
-    for(int i = 1; i < GetLength(); ++i){
-        if(elems[i] > res) res = elems[i];
-    }
-    return res;
-}
-
-template <class ElemType>
-ElemType SeqList<ElemType>::FindMin() const
-{
-    if(IsEmpty()){
-        return ElemType(0);
-    }
-    ElemType res = elems[0];
-    for(int i = 1; i < GetLength(); ++i){
-        if(elems[i] < res) res = elems[i];
-    }
-    return res;
-}
-
-int main(){
-
-
-    system("pause");
-    return 0;
+   	system("PAUSE");
+   	return 0;
 }
