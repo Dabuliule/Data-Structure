@@ -8,7 +8,6 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
-                "E:/WeiPengtao/Computer-Science/Data-Structure/Code/SeqList",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
                 "-fexec-charset=GBK"

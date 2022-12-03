@@ -13,7 +13,7 @@ int main()
         cout << endl << "1. 生成线性表.";
         cout << endl << "2. 显示线性表.";
         cout << endl << "3. 取指定元素.";
-        cout << endl << "4. 设置元素值ֵ.";
+        cout << endl << "4. 设置元素值.";
         cout << endl << "5. 删除元素.";
         cout << endl << "6. 插入元素.";
         cout << endl << "7. 元素定位.";
@@ -30,7 +30,7 @@ int main()
 				while (e != 0 && sta != OVER_FLOW)	{
 					sta = la.InsertElem(e);
 					if (sta == OVER_FLOW) 
-						cout << "." << endl;
+						cout << "已达最大容量." << endl;
 					else
 						cin >> e;
 				}
@@ -49,50 +49,50 @@ int main()
 			case '4':
 			    cout << endl << "输入位置:";
 			    cin >> i;
-			    cout << endl << "输入元素值ֵ:";
+			    cout << endl << "输入元素值:";
 			    cin >> e;
 				if (la.SetElem(i, e) == RANGE_ERROR)
-					cout << "." << endl;
+					cout << "不在范围内." << endl;
 				else
 					cout << "设置成功." << endl;
 			    break;
 			case '5':
-			    cout << endl << ":";
+			    cout << endl << "输入位置:";
 			    cin >> i;
 			    if (la.DeleteElem(i, e) == RANGE_ERROR) 
-					cout << "." << endl;
+					cout << "不在范围内." << endl;
 				else
-					cout << "ֵ:" << e << endl;
+					cout << "被删除元素值:" << e << endl;
 			    break;
 			case '6':
-			    cout << endl << ":";
+			    cout << endl << "输入位置:";
 			    cin >> i;
-			    cout << endl << "ֵ:";
+			    cout << endl << ":";
 			    cin >> e;
 			    sta = la.InsertElem(i, e);
 			    
 			    if (sta == RANGE_ERROR) 
-					cout << "." << endl;
+					cout << "不在范围内." << endl;
 				else if (sta == OVER_FLOW) 
-					cout << "." << endl;
+					cout << "已达最大容量." << endl;
 				else
-					cout << "." << endl;	
+					cout << "插入成功." << endl;	
 			    break;
 			case '7':
-			    cout << endl << "ֵ:";
+			    cout << endl << "输入元素值:";
 			    cin >> e;
 			    i = la.LocateElem(e); 
 			    if (i != 0) 
-					cout << "" << e << "" << i << endl;
+					cout << "元素4的序号为:" << e << "" << i << endl;
 				else
-					cout << "" << e << ""  << endl;
+					cout << "元素" << e << "不存在。"  << endl;
 			    break;
 			case '8':
-			    cout << endl << ":" << la.GetLength() << endl; 
+			    cout << endl << "线性表的长度为:" << la.GetLength() << endl; 
 			    break;
        	}
 	}
 
-   	system("PAUSE");
+   	system("pause");
    	return 0;
 }
