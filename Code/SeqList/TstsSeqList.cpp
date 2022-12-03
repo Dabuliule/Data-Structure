@@ -1,7 +1,7 @@
-#include "Assistance.h"
-#include "SeqList.h"
+#include "Assistance.h"	// 辅助软件包
+#include "SeqList.h"	// 顺序表类
 
-int main()
+int main(void)
 {
 	char c = '*';
     SeqList<int> la(6);
@@ -30,7 +30,7 @@ int main()
 				while (e != 0 && sta != OVER_FLOW)	{
 					sta = la.InsertElem(e);
 					if (sta == OVER_FLOW) 
-						cout << "已达最大容量." << endl;
+						cout << "线性表已满." << endl;
 					else
 						cin >> e;
 				}
@@ -52,7 +52,7 @@ int main()
 			    cout << endl << "输入元素值:";
 			    cin >> e;
 				if (la.SetElem(i, e) == RANGE_ERROR)
-					cout << "不在范围内." << endl;
+					cout << "位置范围错." << endl;
 				else
 					cout << "设置成功." << endl;
 			    break;
@@ -60,21 +60,21 @@ int main()
 			    cout << endl << "输入位置:";
 			    cin >> i;
 			    if (la.DeleteElem(i, e) == RANGE_ERROR) 
-					cout << "不在范围内." << endl;
+					cout << "位置范围错." << endl;
 				else
 					cout << "被删除元素值:" << e << endl;
 			    break;
 			case '6':
 			    cout << endl << "输入位置:";
 			    cin >> i;
-			    cout << endl << ":";
+			    cout << endl << "输入元素值:";
 			    cin >> e;
 			    sta = la.InsertElem(i, e);
 			    
 			    if (sta == RANGE_ERROR) 
-					cout << "不在范围内." << endl;
+					cout << "位置范围错." << endl;
 				else if (sta == OVER_FLOW) 
-					cout << "已达最大容量." << endl;
+					cout << "线性表已满." << endl;
 				else
 					cout << "插入成功." << endl;	
 			    break;
@@ -83,7 +83,7 @@ int main()
 			    cin >> e;
 			    i = la.LocateElem(e); 
 			    if (i != 0) 
-					cout << "元素4的序号为:" << e << "" << i << endl;
+					cout << "元素" << e << "的序号为：" << i << endl;
 				else
 					cout << "元素" << e << "不存在。"  << endl;
 			    break;
@@ -93,6 +93,6 @@ int main()
        	}
 	}
 
-   	system("pause");
-   	return 0;
+   	system("pause");        		// 调用库函数system()，暂停程序运行 
+   	return 0;               		// 返回操作系统
 }

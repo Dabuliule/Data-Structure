@@ -3,7 +3,8 @@
         "xlocale": "cpp",
         "xstring": "cpp",
         "ostream": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "cstdio": "cpp"
     },
     "C_Cpp.errorSquiggles": "Enabled"
 }
