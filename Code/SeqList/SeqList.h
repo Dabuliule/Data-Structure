@@ -19,9 +19,11 @@ public:
 	int GetLength() const;		// 取顺序表长度			 
 	bool IsEmpty() const;		// 判断顺序表是否为空
 	void Clear();				// 将顺序表清空
+	void DelRepElem();			// 删除重复元素
+	void Reverse();				// 将线性表倒转
 	void Traverse(void (*Visit)(const ElemType &)) const;	// 遍历顺序表
 	int LocateElem(const ElemType &e) const;	// 元素定位，求指定元素在顺序表中的位置
-	Status GetElem(int i, ElemType &e) const;	// 取顺序表中第i个元素的值	
+	Status GetElem(int i, ElemType &e) const;	// 取顺序表中第i个元素的值
 	Status SetElem(int i, const ElemType &e);	// 修改顺序表中第i个元素的值
 	Status DeleteElem(int i, ElemType &e);      // 删除顺序表中第i个元素		
 	Status InsertElem(int i, const ElemType &e); // 在顺序表第i个位置插入元素
@@ -83,6 +85,35 @@ void SeqList<ElemType>::Clear()
 // 功能：清空顺序表
 {
 	length = 0;
+}
+
+template <class ElemType>
+void SeqList<ElemType>::DelRepElem()
+// 功能：删除线性表中的重复元素
+{
+	ElemType x, y;
+	for(int i = 1; i <= length; ++i){
+		GetElem(i, x);							// x 取位置 i 的元素值
+		for(int j = i + 1; j <= length; ){		// 遍历位置 i 之后的所有元素
+			GetElem(j, y);						// y 取位置 j 的元素值
+			if(y == x)							// 如果 y == x
+				DeleteElem(j, y);				// 把位置 j 的元素删除，即把 y 删除，并且 j 不变
+			else								// 否则
+				j++;							// j++，j 去到下一个位置
+		}
+	}
+}
+
+template <class ElemType>
+void SeqList<ElemType>::Reverse()
+// 功能：将线性表倒转
+{
+	ElemType temp;										// temp 用作暂存
+	for(int i = 0, j = length - 1; i < j; ++i, --j){	// i 从 0 开始，j 从 length - 1 开始，进行交换
+		temp = elems[i];
+		elems[i] = elems[j];
+		elems[j] = temp;
+	}
 }
 
 template <class ElemType>

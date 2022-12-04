@@ -32,7 +32,6 @@ int main(void)
 					la.InsertElem(e);
 					cin >> e;
 				}
-				cout << endl;
 				break;
 			case '2':
 			    la.Traverse(Write<double>);

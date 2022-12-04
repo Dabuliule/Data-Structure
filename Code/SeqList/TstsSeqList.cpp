@@ -4,7 +4,7 @@
 int main(void)
 {
 	char c = '*';
-    SeqList<int> la(6);
+    SeqList<int> la(1000);
     int e, i;
     Status sta;
     
@@ -18,8 +18,10 @@ int main(void)
         cout << endl << "6. 插入元素.";
         cout << endl << "7. 元素定位.";
         cout << endl << "8. 求线性表长度.";
+		cout << endl << "9. 去除线性表中的重复元素.";
+		cout << endl << "a. 倒转线性表.";
 		cout << endl << "0. 退出";
-		cout << endl << "选择功能(0~8):";
+		cout << endl << "选择功能(0~a):";
 		cin >> c;
 		switch (c) 	{
 			case '1':
@@ -37,6 +39,7 @@ int main(void)
 				break;
 			case '2':
 			    la.Traverse(Write<int>);
+				cout << endl;
 				break;
 			case '3':
 			    cout << endl << "输入元素位置:";
@@ -45,6 +48,7 @@ int main(void)
 					cout << "元素不存储." << endl;
 				else
 					cout << "元素:" << e << endl;
+				cout << endl;
 			    break;
 			case '4':
 			    cout << endl << "输入位置:";
@@ -55,6 +59,7 @@ int main(void)
 					cout << "位置范围错." << endl;
 				else
 					cout << "设置成功." << endl;
+				cout << endl;
 			    break;
 			case '5':
 			    cout << endl << "输入位置:";
@@ -63,6 +68,7 @@ int main(void)
 					cout << "位置范围错." << endl;
 				else
 					cout << "被删除元素值:" << e << endl;
+				cout << endl;
 			    break;
 			case '6':
 			    cout << endl << "输入位置:";
@@ -76,7 +82,8 @@ int main(void)
 				else if (sta == OVER_FLOW) 
 					cout << "线性表已满." << endl;
 				else
-					cout << "插入成功." << endl;	
+					cout << "插入成功." << endl;
+				cout << endl;
 			    break;
 			case '7':
 			    cout << endl << "输入元素值:";
@@ -86,10 +93,28 @@ int main(void)
 					cout << "元素" << e << "的序号为：" << i << endl;
 				else
 					cout << "元素" << e << "不存在。"  << endl;
+				cout << endl;
 			    break;
 			case '8':
-			    cout << endl << "线性表的长度为:" << la.GetLength() << endl; 
+			    cout << endl << "线性表的长度为:" << la.GetLength() << endl;
+				cout << endl;
 			    break;
+			case '9':
+				cout << endl << "原线性表为：" << endl;
+				la.Traverse(Write<int>);
+				cout << endl << "去重后的线性表为：" << endl;
+				la.DelRepElem();
+				la.Traverse(Write<int>);
+				cout << endl;
+				break;
+			case 'a':
+				cout << endl << "原线性表为：" << endl;
+				la.Traverse(Write<int>);
+				cout << endl << "倒转的后线性表为：" << endl;
+				la.Reverse();
+				la.Traverse(Write<int>);
+				cout << endl;
+				break;
        	}
 	}
 
