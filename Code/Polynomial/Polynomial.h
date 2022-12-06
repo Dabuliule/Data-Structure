@@ -24,8 +24,7 @@ public:
 	void InsItem( const PolyItem &item);		// 插入一项
 	Polynomial operator +(const Polynomial &p) const; // 加法运算符重载
 	Polynomial(const Polynomial &copy);			// 复制构造函数
-	Polynomial(const LinkList<PolyItem> &copyLinkList);				
-		// 由多项式组成的线性表构造多项式
+	Polynomial(const LinkList<PolyItem> &copyLinkList);				// 由多项式组成的线性表构造多项式
 	Polynomial &operator =(const Polynomial &copy);	// 赋值语句重载
 	Polynomial &operator =(const LinkList<PolyItem> &copyLinkList);	// 赋值语句重载
 };
