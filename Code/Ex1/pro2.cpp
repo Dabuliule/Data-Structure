@@ -14,7 +14,6 @@ int main()
     int idx1 = 0, idx2 = n - 1;             // idx1 和 idx2 分别代表 HRX 和 HRY 的所在位置 - 1
     while (!list.IsEmpty()) {               // 如果简历未被取完则进入循环
         int x, y;                           // x, y 分别代表 HR: X 和 Y 取到的简历号
-        if (n == 20) break;
 
         //list.Traverse(Write<int>);
         //cout << ";";
