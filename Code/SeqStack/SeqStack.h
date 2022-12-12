@@ -32,7 +32,7 @@ public:
 // 顺序栈类的实现部分
 
 template<class ElemType>
-SeqStack<ElemType>::SeqStack(int size)
+SeqStack<ElemType>::SeqStack(int size = DEFAULT_SIZE)
 // 操作结果：构造一个最大容量为size的空栈
 {
 	maxSize = size;						// 栈的最大容量
@@ -46,6 +46,7 @@ SeqStack<ElemType>::~SeqStack()
 // 操作结果：销毁栈
 {
 	delete []elems;					// 释放栈的存储空间
+	elems = NULL;
 }
 
 template <class ElemType>
@@ -73,7 +74,7 @@ template <class ElemType>
 void SeqStack<ElemType>::Traverse(void (*Visit)(const ElemType &)) const
 // 操作结果：从栈顶到栈底依次对栈的每个元素调用函数(*visit)访问 
 {
-	for (int i = top; i >=0 ; i--) 
+	for (int i = top; i >= 0; i--) 
 		(*Visit)(elems[i]);
 }
 
@@ -118,6 +119,7 @@ template<class ElemType>
 SeqStack<ElemType>::SeqStack(const SeqStack<ElemType> &s) 
 // 操作结果：由栈s构造新栈--复制构造函数
 {
+	if (this == &s) return;
     maxSize = s.maxSize;			    // 栈的最大容量 
     if (elems != NULL) delete []elems;	// 释放已有存储空间
     elems = new ElemType[maxSize];		// 分配存储空间
