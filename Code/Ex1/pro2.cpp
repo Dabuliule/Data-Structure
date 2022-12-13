@@ -25,14 +25,14 @@ int main()
         list.GetElem(idx1 + 1, x);          // 取 x
         list.GetElem(idx2 + 1, y);          // 取 y
         if (idx1 == idx2) {                 // 如果 x, y 是同一份简历
-            cout << " " << x << ";";
+            cout << " " << x;
             list.DeleteElem(idx1 + 1, x);       // 取走 x, HRX 逆时针向后走一位，在单链表中所在位置实际上不变
             if (!list.IsEmpty()) {              // 由于要对 list.GetLength() 取模
                 idx2 = (idx2 - 1 + list.GetLength()) % list.GetLength();    // HRY 顺时针向后走一位，在单链表中所在位置向前减 1
             }
         }
         else {
-            cout << " " << x << ", " << y << ";";
+            cout << " " << x << ", " << y;
             if (idx1 < idx2) {
                 list.DeleteElem(idx1 + 1, x);       // 取走 x, 由于 idx1 < idx2, HRX 逆时针向后走一位，在单链表中所在位置实际上不变
                 list.DeleteElem(idx2, y);           // 取走 y, 由于 idx1 < idx2, x 先取走，故实际上 y 为单链表位置 idx2 处的值
@@ -49,6 +49,7 @@ int main()
         }
 
         if (!list.IsEmpty()) {                      // 如果还没有被取完
+            cout << ";";
             list.InsertElem(idx1 + 1, ++n);         // Z 拿来一份新简历,放在位置 idx1
             if (idx2 >= idx1) {                     // 如果 idx2 >= idx1
                 idx2++;                             // idx2 就往后加 1
