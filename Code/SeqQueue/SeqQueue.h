@@ -12,12 +12,14 @@ protected:
 	int front, rear;									 // 队头队尾指针 
 	int maxSize;										 // 队列容量 
 	ElemType *elems;									 // 元素存储空间
+	int length;											 // 元素个数
 
 public:
 	SeqQueue(int size = DEFAULT_SIZE);					 // 构造函数
 	virtual ~SeqQueue();								 // 析构函数
 	int GetLength() const;								 // 求队列长度			 
 	bool IsEmpty() const;								 // 判断队列是否为空
+	bool IsFull() const;								 // 判断队列是否已满
 	void Clear();										 // 将队列清空
 	void Traverse(void (*Visit)(const ElemType &)) const;// 遍历队列
 	Status DelQueue(ElemType &e);					     // 出队操作
@@ -36,6 +38,7 @@ SeqQueue<ElemType>::SeqQueue(int size)
 	maxSize = size;							// 设置队列容量
 	elems = new ElemType[maxSize];			// 分配元素存储空间
 	rear = front = 0;						// 初始化队头与队尾
+	length = 0;
 }
 
 template <class ElemType>
@@ -56,7 +59,15 @@ template<class ElemType>
 bool SeqQueue<ElemType>::IsEmpty() const
 // 操作结果：如队列为空，则返回true，否则返回false
 {
-   return rear == front;
+	return length == 0;
+	// return rear == front;
+}
+
+template<class ElemType>
+bool SeqQueue<ElemType>::IsFull() const
+// 操作结果：如队列已满，则返回true，否则返回false
+{
+	return length == maxSize;
 }
 
 template<class ElemType>
@@ -64,6 +75,7 @@ void SeqQueue<ElemType>::Clear()
 // 操作结果：清空队列
 {
 	rear = front = 0;
+	length = 0;
 }
 
 template <class ElemType>
@@ -83,6 +95,7 @@ Status SeqQueue<ElemType>::DelQueue(ElemType &e)
 	if (!IsEmpty()) 	{	// 队列非空
 		e = elems[front];					// 用e返回队头元素
 		front = (front + 1) % maxSize;		// front指向下一元素
+		length--;
 		return SUCCESS;
 	}
 	else	// 队列为空
@@ -107,11 +120,12 @@ Status SeqQueue<ElemType>::EnQueue(const ElemType e)
 // 操作结果：如果队列已满，返回OVER_FLOW,
 // 否则插入元素e为新的队尾，返回SUCCESS
 {
-	if ((rear + 1) % maxSize == front)
+	if (IsFull())
 		return OVER_FLOW;
 	else	{	// 队列未满，入队成功
 		elems[rear] = e;					// 插入e为新队尾
 		rear = (rear + 1) % maxSize;		// rear指向新队尾
+		length++;
 		return SUCCESS;
 	}
 }
@@ -125,6 +139,7 @@ SeqQueue<ElemType>::SeqQueue(const SeqQueue<ElemType> &q)
     elems = new ElemType[maxSize];			// 分配存储空间
 	front = q.front;						// 复制队头位置	
 	rear = q.rear;						// 复制队尾位置
+	length = q.length;
 	for (int i = front; i != rear; i = (i + 1) % maxSize)
 		elems[i] = q.elems[i];
 }
@@ -139,6 +154,7 @@ SeqQueue<ElemType> &SeqQueue<ElemType>::operator =(const SeqQueue<ElemType> &q)
 	    elems = new ElemType[maxSize];		// 分配存储空间
 		front = q.front;					// 复制队头位置	
 		rear = q.rear;					// 复制队尾位置
+		length = q.length;
 		for (int i = front; i != rear; i = (i + 1) % maxSize)
 			elems[i] = q.elems[i];
 	}
